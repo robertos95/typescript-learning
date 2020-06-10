@@ -1,14 +1,21 @@
-const person: {
-  name: String;
-  age: number;
-  hobbies: string[];
-  role: [number, string];
-} = {
-  // const person = {
+// const person: {
+//   name: String;
+//   age: number;
+//   hobbies: string[];
+//   role: [number, string];
+// } = {
+
+enum Role {
+  ADMIN,
+  READ_ONLY,
+  AUTHOR,
+}
+
+const person = {
   name: "Roberto",
   age: 25,
   hobbies: ["Chess", "Toastmasters", "Mobile Legends"],
-  role: [2, "author"],
+  role: Role.AUTHOR,
 };
 
 // person.role.push("admin"); // exception (tuple can't check push)
@@ -22,4 +29,8 @@ console.log(person.name);
 
 for (const hobby of person.hobbies) {
   console.log(hobby.toUpperCase());
+}
+
+if (person.role === Role.AUTHOR) {
+  console.log("is author");
 }
