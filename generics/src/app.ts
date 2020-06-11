@@ -53,12 +53,31 @@ class DataStorage<T extends string | number | boolean> {
 }
 
 const textStorage = new DataStorage<string>();
-textStorage.addItem('Max');
-textStorage.addItem('Bob');
-textStorage.removeItem('Max');
+textStorage.addItem("Max");
+textStorage.addItem("Bob");
+textStorage.removeItem("Max");
 console.log(textStorage.getItems());
 
 // const objStorage = newDataStorage<object>();
 // objStorage.addItem({name: 'Max'});
 // objStorage.addItem({name: 'Bob'});
 // objStorage.removeItem({name: 'Max'}); // doesn't work because it's diff instance, must store in an att instead and refer to that att to work
+
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+function createCourseGoal(title: string, description: string, date: Date): CourseGoal {
+    let courseGoal: Partial<CourseGoal> = {};
+    courseGoal.title = title;
+    courseGoal.description = description;
+    courseGoal.completeUntil = date;
+
+    return courseGoal as CourseGoal;
+}
+
+const names: Readonly<string[]> = ['Max', 'Bob'];
+// names.push('Bon');
+// names.pop();
