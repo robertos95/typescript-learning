@@ -1,4 +1,5 @@
 function Logger(logString: string) {
+  console.log('LOGGER FACTORY');
   return function (constructor: Function) {
     console.log(logString);
     console.log(constructor);
@@ -6,23 +7,25 @@ function Logger(logString: string) {
 }
 
 function WithTemplate(template: string, hookId: string) {
-    return function(constructor: any) {
-        const hookEl = document.getElementById(hookId);
-        const p = new constructor(); 
-        if(hookEl) {
-            hookEl.innerHTML = template;
-            hookEl.querySelector('h1')!.textContent = p.name;
-        }
+  console.log('TEMPLATE FACTORY');
+  return function (constructor: any) {
+    console.log('Rendering Template');
+    const hookEl = document.getElementById(hookId);
+    const p = new constructor();
+    if (hookEl) {
+      hookEl.innerHTML = template;
+      hookEl.querySelector('h1')!.textContent = p.name;
     }
+  };
 }
 
-// @Logger("LOGGING - PERSON")
+@Logger('LOGGING')
 @WithTemplate('<h1>My Person Object</h1>', 'app')
 class Person {
-  name = "Bob";
+  name = 'Bob';
 
   constructor() {
-    console.log("Creating person object...");
+    console.log('Creating person object...');
   }
 }
 
