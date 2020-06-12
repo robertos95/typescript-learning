@@ -89,3 +89,39 @@ class Product {
     return this._price * (1 + tax);
   }
 }
+
+function AutoBind(
+  _: any,
+  _2: string,
+  descriptor: PropertyDescriptor
+) {
+  const originalMethod = descriptor.value;
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: false,
+    get() {
+      // inside getter method, this refer to whatever responsible to bind this getter method (in this case, Printer for showMessage method)
+      const boundFn = originalMethod.bind(this);
+      return boundFn;
+    },
+  };
+
+  return adjDescriptor;
+}
+class Printer {
+  message = "This works!";
+
+  @AutoBind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+
+const p = new Printer();
+
+const button = document.querySelector("button")!;
+// solution without decorator auto bind
+// button.addEventListener("click", p.showMessage.bind(p));
+
+// solution with decorator auto bind
+button.addEventListener("click", p.showMessage);
