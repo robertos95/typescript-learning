@@ -1,4 +1,20 @@
-// Code goes here!
-import _ from 'lodash';
+import { Product } from "./product.model";
+import { plainToClass } from "class-transformer";
 
-console.log(_.shuffle([1,2,3]));
+// const p1 = new Product("A book", 12.99);
+// console.log(p1.getInformation());
+
+const products = [
+  { title: "A Carpet", price: 29.99 },
+  { title: "A book", price: 10.99 },
+];
+
+// const loadedProducts = products.map((prod) => {
+//   return new Product(prod.title, prod.price);
+// });
+
+const loadedProducts = plainToClass(Product, products);
+
+for (const p of loadedProducts) {
+  console.log(p.getInformation());
+}
